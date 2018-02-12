@@ -1,0 +1,15 @@
+.full-height {
+    height: 80vh;
+}
+
+.flex-center {
+    align-items: center;
+    display: flex;
+    justify-content: center;
+}
+
+.content {
+    text-align: center;
+    font-size: 84px;
+    margin-bottom: 30px;
+}

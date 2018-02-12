@@ -1,0 +1,105 @@
+html, body{
+    height: 100%;
+    /*position: relative;*/
+    background-color:  lightgray;
+}
+
+.panel-default{
+    height: 100%;
+    margin: 0;
+    display: flex;
+    flex-direction: column;
+}
+
+.panel-heading{
+    background-color: lightgray;
+    border: none;
+    padding: 0;
+    flex-grow: 0;
+}
+
+.panel-body{
+    height: 100%;
+    background-color: lightgray;
+    flex-grow: 1;
+    overflow: auto;
+}
+
+.panel-footer{
+    background-color: #222;
+    text-align: center;
+    color: #777;
+    flex-grow: 0;
+}
+
+.navbar-inverse{
+    margin: 0;
+}
+
+.log_or_reg{
+    float: right;
+}
+
+.new_post_form{
+    margin-left: 40px;
+}
+
+.edit_delete_post_button{
+
+    text-align:right;
+}
+
+.edit_delete_post_button > form{
+    display: inline-block;
+}
+
+.comments{
+    margin-top: 15px;
+}
+
+.list-group-item{
+    background-color: lightgray;
+}
+.save-comment-btn{
+    margin-top: 5px;
+    float: right;
+    display: inline-block;
+    margin-bottom: 50px;
+}
+
+.comment-user-name{
+    color: #2a88bd;
+    margin-bottom: 5px;
+}
+
+.comment-time{
+    text-align:right;
+}
+
+.sidebar{
+    text-align: center;
+    margin-top: 20px;
+    border-radius: 10px;
+    background-color: darkgrey;
+}
+
+.com-title{
+    margin-bottom: 10px;
+    text-align: center;
+}
+
+.com-body{
+    margin:0 auto;
+    margin-bottom: 10px;
+}
+
+.sub-btn{
+    margin-top: 20px;
+    text-align: center;
+}
+
+.subscribe-on-user{
+    border-radius: 10px;
+    margin-top: 20px;
+    background-color: darkgrey;
+}

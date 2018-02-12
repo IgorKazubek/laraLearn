@@ -1,43 +1,76 @@
-<?php
-/**
- * Created by PhpStorm.
- * User: Master
- * Date: 10.01.2018
- * Time: 15:36
- */?>
-
 <!DOCTYPE html>
 <html>
 <head>
     <title></title>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
+    <meta name="csrf-token" content="{{ csrf_token() }}">
 </head>
+
 <body>
-<ul>
+@extends('layouts.master')
+@section('title')
+    Tasks
+@endsection
+@section('content')
 
-    @foreach ($tasks as $task)
-    <li style="margin: 3px">
-        <div>
-            <div style="width: 200px; float: left">
+    <ul>
+        @foreach ($tasks as $task)
+            <li id="task_{{$task->id}}" style="margin: 3px">
+                <div>
+                    <div style="width: 200px; float: left">
+                        <a href="/tasks/{{$task->id}}">
+                            {{$task->body}}
+                        </a>
+                    </div>
+                    <button class="done-btn" id="{{$task->id}}" style=" margin-left: 35px">Done</button>
+                </div>
 
-                <a href="/tasks/<?php echo $task->id?>">
-                    {{$task->body}}
-                </a>
-            </div>
-            <button style=" margin-left: 15px"><a href="/tasks/update/{{$task->id}}" style="text-decoration: none">Done</a></button>
-        </div>
-
-    </li>
+            </li>
         @endforeach
-</ul>
+    </ul>
 
-<form method="post" action="{{action('TaskController@create')}}" style="margin-left: 20px">
-    {{ csrf_field() }}
-    <label for="body">New task:</label>
-    <input type="text" name="body" required>
+    <form method="post" action="{{action('TaskController@create')}}" style="margin-left: 20px">
+        {{ csrf_field() }}
+        <label for="body">New task:</label>
+        <input type="text" name="body">
+        <button type="submit">Submit</button>
+    </form>
 
-    <button type="submit">Submit</button>
+    @if(count($errors))
+        <div>
+            <ul>
+                @foreach($errors->all() as $error)
+                    <li>{{$error}}</li>
+                @endforeach
+            </ul>
+        </div>
+    @endif
+@endsection
 
-</form>
+<script>
+
+    $('#document').ready(function () {
+        $.ajaxSetup({
+            headers: {
+                'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+            }
+        });
+
+        $('.done-btn').on('click', function () {
+            var taskId = this.id;
+
+            $.ajax({
+                method: 'post',
+                url: '/tasks/update/' + taskId,
+                data: taskId,
+                success: function(){
+                    $('#task_'+ taskId).remove();
+                }
+            });
+        });
+    });
+
+</script>
 
 </body>
 </html>
