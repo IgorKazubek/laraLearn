@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Carbon\Carbon;
 use App\Post;
 use App\Comment;
+use http\Env\Response;
 use Validator;
 
 class PostController extends Controller
@@ -16,7 +17,7 @@ class PostController extends Controller
 
     public function index()
     {
-        $posts = Post::latest();
+        $posts = Post::with('user')->latest();
 
         if($month = request('month'))
             $posts->whereMonth('created_at', Carbon::parse($month)->month);
@@ -26,12 +27,17 @@ class PostController extends Controller
 
         if($author = request('author')){
             $posts = Post::getPostsByAuthor($author);
-            return view('posts.index', compact('posts'));
+//            return view('posts.index', compact('posts'));
+            return response()->json($posts);
+
         }
 
         $posts = $posts->get();
 
-        return view('posts.index', compact('posts'));
+//        return view('posts.index', compact('posts'));
+//        dd($posts);
+        return response()->json($posts);
+
     }
 
     public function create()
@@ -41,23 +47,33 @@ class PostController extends Controller
 
     public function store()
     {
-        $this->validate(request(), [
-            'title' => 'required|max:15',
-            'body' => 'required'
-        ]);
+//        $this->validate(request(), [
+//            'title' => 'required|max:15',
+//            'body' => 'required'
+//        ]);
 
         $post = new Post;
 
-        $post->user_id = auth()->id();
+//        if(is_null(auth()->id())){
+//            $post->user_id = 1;
+//        }
+//        else $post->user_id = auth()->id();
+        $post->user_id = 1;
         $post->title = request()->title;
         $post->body = request()->body;
         $post->save();
         return redirect('/posts');
     }
 
-    public function show(Post $post)
+    public function show($id)
     {
-        return view('posts.show', compact('post'));
+//        return view('posts.show', compact('post'));
+
+        $currentPost = Post::find($id);
+
+        //dd($currentPost);
+
+        return response()->json($currentPost);
     }
 
     public function edit($id)

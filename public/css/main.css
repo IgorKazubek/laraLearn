@@ -103,3 +103,19 @@ html, body{
     margin-top: 20px;
     background-color: darkgrey;
 }
+
+.box{
+    width: 75%;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
+
+.new_post_button{
+    margin-left: 40px;
+}
+
+.new_post_button > a{
+    text-decoration: none;
+    color: white;
+}

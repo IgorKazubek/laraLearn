@@ -8,9 +8,6 @@
 @section('content')
 <div class="col-sm-8">
 
-    {{'USER ID' . Auth::user()->id .' '.' POST US ID'.$post->user_id}}
-
-    {{dd($post)}}
     <h3>{{$post->title}}</h3>
 
     @if(!is_null($post->created_at))
